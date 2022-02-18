@@ -24,16 +24,6 @@ const Home: NextPage = () => {
                   content={'Chakra automatically sets focus on the first tabbable element in the modal. However, there might be scenarios where you need to manually control where focus goes'}
                   timestamp={'2022-02-18T15:57:19.771Z'}
                   user={'pavan'}
-              /><Post
-                  title={'Focus on specific element'}
-                  content={'Chakra automatically sets focus on the first tabbable element in the modal. However, there might be scenarios where you need to manually control where focus goes'}
-                  timestamp={'2022-02-18T15:57:19.771Z'}
-                  user={'pavan'}
-              /><Post
-                  title={'Focus on specific element'}
-                  content={'Chakra automatically sets focus on the first tabbable element in the modal. However, there might be scenarios where you need to manually control where focus goes'}
-                  timestamp={'2022-02-18T15:57:19.771Z'}
-                  user={'pavan'}
               />
 
           </Grid>

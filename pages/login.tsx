@@ -4,7 +4,6 @@ import {
     FormControl,
     FormLabel,
     Input,
-    Checkbox,
     Stack,
     Link,
     Button,
@@ -12,8 +11,18 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
+import {useState} from "react";
 
-export default function SimpleCard() {
+export default function Login() {
+    const [input, setInput] = useState({
+        username: "",
+        password: ""
+    })
+
+    const handleChange = (event: any) => {
+        setInput({...input, [event.target.id] : event.target.value})
+    }
+
     return (
         <Flex
             minH={'100vh'}
@@ -33,13 +42,13 @@ export default function SimpleCard() {
                     boxShadow={'lg'}
                     p={8}>
                     <Stack spacing={4}>
-                        <FormControl id="email">
-                            <FormLabel>Email address</FormLabel>
-                            <Input type="email" />
+                        <FormControl id="un">
+                            <FormLabel>Username</FormLabel>
+                            <Input type="text"  id={'username'} onChange={handleChange} value={input.username} />
                         </FormControl>
                         <FormControl id="password">
                             <FormLabel>Password</FormLabel>
-                            <Input type="password" />
+                            <Input type="password"  id={'password'} onChange={handleChange} value={input.password} />
                         </FormControl>
                         <Stack spacing={10}>
                             <Button
