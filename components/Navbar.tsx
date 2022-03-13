@@ -9,14 +9,19 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
+import {useContext} from "react";
 
 // COMPONENTS
 import NewPost from "./NewPost";
 
+// CONTEXT
+import {UserContext} from "../context/users";
 
 export default function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { isOpen: isPostModalOpen, onOpen: openPostModal, onClose: closePostModal } = useDisclosure();
+
+    const {logoutUser} = useContext(UserContext)
 
     return (
         <>
@@ -33,7 +38,7 @@ export default function Navbar() {
                     <HStack spacing={8} alignItems={'center'}>
                         <Box>Simple ISR App</Box>
                     </HStack>
-                    <Flex alignItems={'center'}>
+                    <Flex alignItems={'center'} gap={'.5rem'}>
                         <Button
                             variant={'solid'}
                             colorScheme={'teal'}
@@ -50,7 +55,7 @@ export default function Navbar() {
                                 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
                             }
                         />
-                        <Button>Logout</Button>
+                        <Button onClick={logoutUser} >Logout</Button>
                     </Flex>
                 </Flex>
             </Box>
