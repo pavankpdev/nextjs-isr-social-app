@@ -39,9 +39,8 @@ export default function Login() {
     const handleSubmit = async () => {
         try {
             const res = await loginApi(input.username, input.password)
-
-            const {firstName, lastName, username, id} = res;
-            updateUser({firstName, lastName, username, id});
+            const { username } = res;
+            updateUser({firstName: '', lastName: '', username, id: ''});
             router.push('/')
         } catch (error: any) {
             toast({
