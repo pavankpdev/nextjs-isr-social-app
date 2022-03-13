@@ -13,7 +13,7 @@ export const loginApi = async (username: string, password: string) => {
             data: body
         })
 
-        localStorage.setItem('isr', JSON.stringify({token: data.accessToken, id: data.id}));
+        localStorage.setItem('isr', JSON.stringify({token: data.accessToken, username: data.username}));
         setHeaders('Authorization', `Bearer ${data.accessToken}`);
 
         return data
@@ -37,7 +37,7 @@ export const registerApi = async (userData: {firstName: string, lastName: string
             }
         })
 
-        localStorage.setItem('isr', JSON.stringify({token: data.accessToken, id: data.id}));
+        localStorage.setItem('isr', JSON.stringify({token: data.accessToken, username: data.username}));
         setHeaders('Authorization', `Bearer ${data.accessToken}`);
 
         return data
