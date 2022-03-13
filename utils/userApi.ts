@@ -1,13 +1,13 @@
-import axios, {setHeaders} from "../configs/axios";
+import axios from "../configs/axios";
 
-export const getUserByIDApi = async (id: string) => {
+export const getUsersApi = async (key: 'username' | 'id', value: string) => {
     try {
         const {data} = await axios({
             method: 'GET',
-            url: `/api/users/${id}`,
+            url: `/api/users`,
         });
 
-        return data
+        return data.filter((user: any) => user[key] === value);
     }catch (error: any) {
         console.log(error)
     }

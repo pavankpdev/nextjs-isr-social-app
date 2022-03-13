@@ -1,7 +1,7 @@
 import React, { ReactChild, useState } from "react";
 
 // API
-import {getUserByIDApi} from "../utils/userApi";
+import {getUsersApi} from "../utils/userApi";
 
 // CONFIGS
 import axios from "../configs/axios";
@@ -44,12 +44,17 @@ export const UserProvider: React.FC<{ children: ReactChild }> = ({children}) => 
     const getUser = async () => {
         try {
             const userId = localStorage.getItem('isr');
-            if(!userId) {
+            if(!userId && !window.location.pathname.includes('/auth')) {
                 window.location.href = '/auth?noToken=true';
                 return;
             }
-            const res = await getUserByIDApi((JSON.parse(userId) as {token: string, id: string}).id)
-            console.log({res});
+            const res = await getUsersApi('username', (JSON.parse(userId as string) as {token: string, username: string}).username)
+
+            if(!res.length){
+                window.location.href = '/auth/?noToken=true'
+            }
+            const {firstName, lastName, username, id} = res[0];
+            setUser({firstName, lastName, username, id})
 
         } catch (error: any) {
             console.log(error);
@@ -76,6 +81,7 @@ export const UserProvider: React.FC<{ children: ReactChild }> = ({children}) => 
     const logoutUser = () => {
         localStorage.removeItem('isr');
         resetUserContext();
+        window.location.href = '/auth'
     }
 
     return (
