@@ -29,8 +29,9 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     (error) => {
-        if (error.response?.status == 401) {
-            // window.location.href = "/auth"
+        if (!window.location.pathname.includes('/auth') && error.response?.status == 401) {
+
+            window.location.href = "/auth"
             return;
         }
 
