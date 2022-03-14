@@ -10,9 +10,9 @@ axiosInstance.interceptors.request.use(
             return config;
         }
 
-        if (localStorage.getItem("pride")) {
-            const { token } = JSON.parse(localStorage.getItem("pride") as string);
-            (config.headers as any).Authorization = token;
+        if (localStorage.getItem("isr")) {
+            const { token } = JSON.parse(localStorage.getItem("isr") as string);
+            (config.headers as any).Authorization = `Bearer ${token}`;
             return config;
         }
 
