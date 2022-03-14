@@ -11,5 +11,17 @@ export const getUsersApi = async (key: 'username' | 'id', value: string) => {
     }catch (error: any) {
         console.log(error)
     }
+}
 
+export const getUserById = async (id: string) => {
+    try {
+        const {data} = await axios({
+            method: 'GET',
+            url: `/api/users/${id}`
+        })
+
+        return data
+    } catch (error: any) {
+        console.log(error)
+    }
 }
