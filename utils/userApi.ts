@@ -1,8 +1,8 @@
-import axios from "../configs/axios";
+import {getAxiosInstance} from "../configs/axios";
 
 export const getUsersApi = async (key: 'username' | 'id', value: string) => {
     try {
-        const {data} = await axios({
+        const {data} = await getAxiosInstance()({
             method: 'GET',
             url: `/api/users`,
         });
@@ -15,7 +15,7 @@ export const getUsersApi = async (key: 'username' | 'id', value: string) => {
 
 export const getUserById = async (id: string) => {
     try {
-        const {data} = await axios({
+        const {data} = await getAxiosInstance()({
             method: 'GET',
             url: `/api/users/${id}`
         })

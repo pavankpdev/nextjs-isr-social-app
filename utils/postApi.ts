@@ -1,8 +1,8 @@
-import axios from "../configs/axios";
+import {getAxiosInstance} from "../configs/axios";
 
 export const createPostApi = async (post: {title: string, content: string, user: {id: string}}) => {
     try {
-        const { data } = await axios({
+        const { data } = await getAxiosInstance()({
             method: 'POST',
             url: '/api/posts',
             data: post
@@ -14,9 +14,9 @@ export const createPostApi = async (post: {title: string, content: string, user:
     }
 }
 
-export const getAllPost = async () => {
+export const getAllPost = async (isSSR = false) => {
     try {
-        const {data} = await axios({
+        const {data} = await getAxiosInstance()({
             method: 'GET',
             url: '/api/posts',
         })

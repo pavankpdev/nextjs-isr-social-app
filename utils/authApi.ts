@@ -1,4 +1,4 @@
-import axios, {setHeaders} from "../configs/axios";
+import {getAxiosInstance} from "../configs/axios";
 
 export const loginApi = async (username: string, password: string) => {
     try{
@@ -7,14 +7,13 @@ export const loginApi = async (username: string, password: string) => {
             password
         }
 
-        const {data} = await axios({
+        const {data} = await getAxiosInstance()({
             method: "POST",
             url: '/api/login',
             data: body
         })
 
         localStorage.setItem('isr', JSON.stringify({token: data.accessToken, username: data.username}));
-        setHeaders('Authorization', `Bearer ${data.accessToken}`);
 
         return data
     }catch (error: any){
@@ -25,7 +24,7 @@ export const loginApi = async (username: string, password: string) => {
 export const registerApi = async (userData: {firstName: string, lastName: string, password: string, username: string}) => {
     try{
 
-        const {data} = await axios({
+        const {data} = await getAxiosInstance()({
             method: "POST",
             url: '/api/users',
             data: {
@@ -38,7 +37,6 @@ export const registerApi = async (userData: {firstName: string, lastName: string
         })
 
         localStorage.setItem('isr', JSON.stringify({token: data.accessToken, username: data.username}));
-        setHeaders('Authorization', `Bearer ${data.accessToken}`);
 
         return data
 
