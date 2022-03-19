@@ -1,46 +1,53 @@
-import type { NextPage } from 'next'
+import type {GetStaticProps, NextPage} from 'next'
 import Head from 'next/head'
 import {Container, Grid} from "@chakra-ui/react";
-import {useEffect, useState} from "react";
 
 // COMPONENTS
 import Navbar from "../components/Navbar";
 import Post from "../components/Post";
 
 // API
-import {getAllPost} from "../utils/postApi";
+import axios from "axios";
 
-const Home: NextPage = () => {
-   const [posts, setPosts] = useState([])
+// TYPES
+import {POST} from "../types";
 
-   useEffect(() => {
-       getAllPost()
-           .then((data) => setPosts(data))
-           .catch(err => console.log(err))
-   }, [])
+const Home: NextPage<{posts: POST[]}> = ({posts}) => {
 
-  return (
-    <div>
-      <Head>
-        <title>Create Next App</title>
-        <meta name="description" content="A simple social media app to implement Incremental Static Regeneration (ISR) from nextjs" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    return (
+        <div>
+            <Head>
+                <title>Create Next App</title>
+                <meta name="description" content="A simple social media app to implement Incremental Static Regeneration (ISR) from nextjs" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
-      <Navbar />
+            <Navbar />
 
-      <Container my={'2rem'} maxW={"container.xl"}>
-          <Grid gridTemplateColumns={"repeat(3, 1fr)"} cursor={'pointer'} gridGap={'1rem'}>
-              {
-                  posts.map((post: any) => <Post {...post} key={post.id} />)
-              }
+            <Container my={'2rem'} maxW={"container.xl"}>
+                <Grid gridTemplateColumns={"repeat(3, 1fr)"} cursor={'pointer'} gridGap={'1rem'}>
+                    {
+                        posts.map((post: any) => <Post {...post} key={post.id} />)
+                    }
 
 
-          </Grid>
-      </Container>
+                </Grid>
+            </Container>
 
-    </div>
-  )
+        </div>
+    )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+
+    const res = await axios.get('http://localhost:3000/api/post');
+
+    return {
+        props: {
+            posts: res?.data?.posts || [],
+        },
+        revalidate: 10, // 10 Seconds
+    }
 }
 
 export default Home
