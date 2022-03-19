@@ -56,8 +56,11 @@ export const getStaticProps: GetStaticProps = async (ctx) =>  {
 export const getStaticPaths: GetStaticPaths<{id: string}> = async () => {
     const res = await axios.get('http://localhost:3000/api/post');
 
+    // adding page limit to pre-render certain number of pages, others can be rendered on demand.
+    const pageLimit = 5;
+
     // Get the paths we want to pre-render based on posts id
-    const paths = res?.data?.posts?.slice(0, (res?.data?.posts.length || 1) - 1).map((post: any) => ({
+    const paths = res?.data?.posts?.slice(0, pageLimit).map((post: any) => ({
         params: { id: post.id },
     }))
 
