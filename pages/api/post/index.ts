@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from 'next'
-import {getAxiosInstance} from "../../configs/axios";
+import {getAxiosInstance} from "../../../configs/axios";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -11,8 +11,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
             }
         })
 
-        // const {data} = await getAllPost(true);
-        console.log({data})
         res.status(200).json({posts: data})
     } catch (error: any) {
         res.status(500).json({error})
